@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  namespace: memory-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - name: ui
+        image: memory-agent-ui:latest
+        imagePullPolicy: IfNotPresent
+        command: ["streamlit", "run", "interface/ui/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
+        ports:
+        - containerPort: 8501
+        envFrom:
+        - configMapRef:
+            name: memory-config
+        - secretRef:
+            name: memory-secrets
+        env:
+        - name: API_URL
+          value: "http://api:8000/api"
+        livenessProbe:
+          tcpSocket:
+            port: 8501
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+  namespace: memory-system
+spec:
+  selector:
+    app: ui
+  ports:
+  - port: 8501
+    targetPort: 8501

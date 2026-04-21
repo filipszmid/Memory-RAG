@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: memory-system
+
+resources:
+  - k8s/namespace.yaml
+  - k8s/storage.yaml
+  - k8s/configmap.yaml
+  - k8s/postgres.yaml
+  - k8s/redis.yaml
+  - k8s/elasticsearch.yaml
+  - k8s/ollama.yaml
+  - k8s/api.yaml
+  - k8s/ui.yaml
+  - k8s/worker.yaml
+  - k8s/litellm-config.yaml
+  - k8s/litellm-db-secret.yaml
+  - k8s/litellm.yaml
+  - k8s/ingress.yaml
+
+secretGenerator:
+  - name: memory-secrets
+    envs:
+      - .env

@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_004",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Strasznie bolą mnie plecy od siedzenia przy biurku. Pracuję jako programista Java i siedzę po 10 godzin dziennie."
+      },
+      {
+         "role":"assistant",
+         "content":"Może warto pomyśleć o biurku typu standing desk lub lepszym fotelu?"
+      },
+      {
+         "role":"user",
+         "content":"Właśnie kupiłem biurko z regulacją, ale szukam jeszcze jakiejś podkładki pod mysz. Używam tylko produktów Apple, więc musi pasować do szarego designu."
+      },
+      {
+         "role":"assistant",
+         "content":"Rozumiem, estetyka Apple jest dość specyficzna. A po pracy udaje Ci się trochę rozruszać?"
+      },
+      {
+         "role":"user",
+         "content":"Tak, staram się biegać maratony, to moja pasja od 5 lat. W zeszłym roku biegałem w Berlinie."
+      }
+   ]
+}

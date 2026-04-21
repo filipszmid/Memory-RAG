@@ -1,0 +1,44 @@
+{
+  "conversation_id": "conv_002",
+  "facts": [
+    {
+      "fact": "User is married",
+      "category": "demographics"
+    },
+    {
+      "fact": "User has a dog named Burek",
+      "category": "household"
+    },
+    {
+      "fact": "User likes sushi",
+      "category": "preferences"
+    },
+    {
+      "fact": "User likes spicy food",
+      "category": "preferences"
+    },
+    {
+      "fact": "User does not drink alcohol",
+      "category": "preferences"
+    },
+    {
+      "fact": "User likes green tea",
+      "category": "preferences"
+    },
+    {
+      "fact": "User prefers Japanese green tea",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 2.26,
+    "prompt_tokens": 787,
+    "completion_tokens": 101,
+    "estimated_cost_usd": 0.001994,
+    "success": true
+  }
+}

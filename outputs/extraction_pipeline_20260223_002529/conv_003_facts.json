@@ -1,0 +1,32 @@
+{
+  "conversation_id": "conv_003",
+  "facts": [
+    {
+      "fact": "User previously lived in an apartment in Krakow",
+      "category": "household"
+    },
+    {
+      "fact": "User currently lives in their own house near Krakow",
+      "category": "household"
+    },
+    {
+      "fact": "User is 34 years old",
+      "category": "demographics"
+    },
+    {
+      "fact": "User has two German Shepherd dogs",
+      "category": "household"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 2.86,
+    "prompt_tokens": 772,
+    "completion_tokens": 81,
+    "estimated_cost_usd": 0.001775,
+    "success": true
+  }
+}

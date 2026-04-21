@@ -1,0 +1,36 @@
+{
+  "conversation_id": "conv_006",
+  "facts": [
+    {
+      "fact": "User is married.",
+      "category": "demographics"
+    },
+    {
+      "fact": "User has a pet Labrador.",
+      "category": "household"
+    },
+    {
+      "fact": "User has a severe peanut allergy.",
+      "category": "preferences"
+    },
+    {
+      "fact": "User enjoys reading books in the shade.",
+      "category": "preferences"
+    },
+    {
+      "fact": "User likes reading medical thrillers.",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gemini-3.1-pro-preview",
+  "provider": "gemini",
+  "telemetry": {
+    "api_latency_sec": 18.93,
+    "prompt_tokens": 589,
+    "completion_tokens": 145,
+    "estimated_cost_usd": 0.002918,
+    "success": true
+  }
+}

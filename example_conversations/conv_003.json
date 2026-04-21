@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_003",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Muszę zmienić dane w moim profilu. Właśnie się przeprowadziłem z mieszkania w Krakowie do własnego domu pod miastem."
+      },
+      {
+         "role":"assistant",
+         "content":"Gratuluję nowego domu! Czy w związku z tym szukasz jakichś nowych sprzętów?"
+      },
+      {
+         "role":"user",
+         "content":"Tak, w końcu mam ogród, więc szukam kosiarki automatycznej. Mam 34 lata i obiecałem sobie, że nie będę już tracił sobót na trawnik."
+      },
+      {
+         "role":"assistant",
+         "content":"Słuszna decyzja. A czy Twój kot będzie bezpieczny przy takiej kosiarce?"
+      },
+      {
+         "role":"user",
+         "content":"Nie mam kota, mam dwa owczarki niemieckie. Muszą mieć dużo miejsca do biegania."
+      }
+   ]
+}

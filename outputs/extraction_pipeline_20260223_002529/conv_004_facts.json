@@ -1,0 +1,32 @@
+{
+  "conversation_id": "conv_004",
+  "facts": [
+    {
+      "fact": "User works as a Java programmer",
+      "category": "demographics"
+    },
+    {
+      "fact": "User uses only Apple products",
+      "category": "preferences"
+    },
+    {
+      "fact": "User is passionate about running marathons",
+      "category": "preferences"
+    },
+    {
+      "fact": "User has been passionate about running marathons for 5 years",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 3.54,
+    "prompt_tokens": 784,
+    "completion_tokens": 77,
+    "estimated_cost_usd": 0.00175,
+    "success": true
+  }
+}

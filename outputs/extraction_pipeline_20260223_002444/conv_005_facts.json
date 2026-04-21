@@ -1,0 +1,40 @@
+{
+  "conversation_id": "conv_005",
+  "facts": [
+    {
+      "fact": "User owns a house",
+      "category": "household"
+    },
+    {
+      "fact": "User's house has an alarm and monitoring system",
+      "category": "household"
+    },
+    {
+      "fact": "User has a safe in their house",
+      "category": "household"
+    },
+    {
+      "fact": "User is married",
+      "category": "demographics"
+    },
+    {
+      "fact": "User uses Sony photography equipment",
+      "category": "preferences"
+    },
+    {
+      "fact": "User is a professional wedding photographer",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gemini-3.1-pro-preview",
+  "provider": "gemini",
+  "telemetry": {
+    "api_latency_sec": 16.14,
+    "prompt_tokens": 615,
+    "completion_tokens": 174,
+    "estimated_cost_usd": 0.003318,
+    "success": true
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "summary": {
+    "total_conversations": 6,
+    "total_facts_extracted": 28,
+    "total_pii_filtered": 0,
+    "total_validation_errors": 0,
+    "total_pipeline_errors": 0,
+    "provider": "openai",
+    "model": "gpt-5.1-2025-11-13",
+    "telemetry": {
+      "total_api_latency_sec": 16.18,
+      "total_prompt_tokens": 4709,
+      "total_completion_tokens": 508,
+      "total_estimated_cost_usd": 0.010966,
+      "successful_calls": 6,
+      "failed_calls": 0,
+      "avg_latency_per_call_sec": 2.7,
+      "extraction_success_rate_pct": 100.0
+    }
+  },
+  "conversations": {
+    "conv_002": {
+      "conversation_id": "conv_002",
+      "facts": [
+        {
+          "fact": "User is married",
+          "category": "demographics"
+        },
+        {
+          "fact": "User has a dog named Burek",
+          "category": "household"
+        },
+        {
+          "fact": "User likes sushi",
+          "category": "preferences"
+        },
+        {
+          "fact": "User likes spicy food",
+          "category": "preferences"
+        },
+        {
+          "fact": "User does not drink alcohol",
+          "category": "preferences"
+        },
+        {
+          "fact": "User likes green tea",
+          "category": "preferences"
+        },
+        {
+          "fact": "User prefers Japanese green tea",
+          "category": "preferences"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 2.26,
+        "prompt_tokens": 787,
+        "completion_tokens": 101,
+        "estimated_cost_usd": 0.001994,
+        "success": true
+      }
+    },
+    "conv_001": {
+      "conversation_id": "conv_001",
+      "facts": [
+        {
+          "fact": "User has a 3-year-old daughter named Zosia",
+          "category": "household"
+        },
+        {
+          "fact": "User prefers to buy Britax products",
+          "category": "preferences"
+        },
+        {
+          "fact": "User has a small car, a Toyota Yaris",
+          "category": "preferences"
+        },
+        {
+          "fact": "User lives in an apartment block",
+          "category": "household"
+        },
+        {
+          "fact": "User lives in the city of Warsaw",
+          "category": "household"
+        },
+        {
+          "fact": "User’s first name is Jan",
+          "category": "identity"
+        },
+        {
+          "fact": "User’s last name is Kowalski",
+          "category": "identity"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 2.32,
+        "prompt_tokens": 810,
+        "completion_tokens": 125,
+        "estimated_cost_usd": 0.002262,
+        "success": true
+      }
+    },
+    "conv_003": {
+      "conversation_id": "conv_003",
+      "facts": [
+        {
+          "fact": "User previously lived in an apartment in Krakow",
+          "category": "household"
+        },
+        {
+          "fact": "User currently lives in their own house near Krakow",
+          "category": "household"
+        },
+        {
+          "fact": "User is 34 years old",
+          "category": "demographics"
+        },
+        {
+          "fact": "User has two German Shepherd dogs",
+          "category": "household"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 2.86,
+        "prompt_tokens": 772,
+        "completion_tokens": 81,
+        "estimated_cost_usd": 0.001775,
+        "success": true
+      }
+    },
+    "conv_005": {
+      "conversation_id": "conv_005",
+      "facts": [
+        {
+          "fact": "User prefers Sony photographic equipment",
+          "category": "preferences"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 3.04,
+        "prompt_tokens": 787,
+        "completion_tokens": 30,
+        "estimated_cost_usd": 0.001284,
+        "success": true
+      }
+    },
+    "conv_004": {
+      "conversation_id": "conv_004",
+      "facts": [
+        {
+          "fact": "User works as a Java programmer",
+          "category": "demographics"
+        },
+        {
+          "fact": "User uses only Apple products",
+          "category": "preferences"
+        },
+        {
+          "fact": "User is passionate about running marathons",
+          "category": "preferences"
+        },
+        {
+          "fact": "User has been passionate about running marathons for 5 years",
+          "category": "preferences"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 3.54,
+        "prompt_tokens": 784,
+        "completion_tokens": 77,
+        "estimated_cost_usd": 0.00175,
+        "success": true
+      }
+    },
+    "conv_006": {
+      "conversation_id": "conv_006",
+      "facts": [
+        {
+          "fact": "User is married",
+          "category": "demographics"
+        },
+        {
+          "fact": "User has a large dog that is a Labrador",
+          "category": "household"
+        },
+        {
+          "fact": "User has a strong allergy to peanuts",
+          "category": "demographics"
+        },
+        {
+          "fact": "User prefers to read books in the shade while on vacation",
+          "category": "preferences"
+        },
+        {
+          "fact": "User usually chooses medical thrillers to read",
+          "category": "preferences"
+        }
+      ],
+      "pii_filtered_count": 0,
+      "validation_errors_count": 0,
+      "model": "gpt-5.1-2025-11-13",
+      "provider": "openai",
+      "telemetry": {
+        "api_latency_sec": 2.16,
+        "prompt_tokens": 769,
+        "completion_tokens": 94,
+        "estimated_cost_usd": 0.001901,
+        "success": true
+      }
+    }
+  }
+}

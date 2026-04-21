@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_005",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Chciałbym ubezpieczyć mój dom. Jest wart około 1.2 miliona złotych."
+      },
+      {
+         "role":"assistant",
+         "content":"To spora inwestycja. Czy w domu są jakieś szczególne zabezpieczenia?"
+      },
+      {
+         "role":"user",
+         "content":"Mamy alarm i monitoring. Ostatnio zamontowałem też sejf, w którym trzymam gotówkę i biżuterię żony, bo nie ufam bankom."
+      },
+      {
+         "role":"assistant",
+         "content":"Bezpieczeństwo przede wszystkim. Czy chciałby Pan ubezpieczyć też sprzęt elektroniczny?"
+      },
+      {
+         "role":"user",
+         "content":"Tak, mam sporo sprzętu fotograficznego marki Sony, bo zawodowo robię zdjęcia na ślubach. Mój numer konta do płatności to PL 88 1020 1234 5678 9012 3456 7890."
+      }
+   ]
+}

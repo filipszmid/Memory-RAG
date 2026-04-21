@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_001",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Cześć, szukam fotelika samochodowego. Moja córka Zosia ma już 3 lata i wyrasta z obecnego."
+      },
+      {
+         "role":"assistant",
+         "content":"Oczywiście, pomogę wybrać coś bezpiecznego. Czy macie Państwo jakieś preferencje co do marki?"
+      },
+      {
+         "role":"user",
+         "content":"Zawsze kupujemy Britax, bo mamy małe auto – Toyotę Yaris – i te foteliki dobrze pasują. Mieszkamy w bloku, więc muszę go tachać na 3. piętro, więc waga jest ważna."
+      },
+      {
+         "role":"assistant",
+         "content":"Rozumiem. A czy potrzebuje Pan faktury na firmę?"
+      },
+      {
+         "role":"user",
+         "content":"Tak, podam dane do wysyłki: Jan Kowalski, PESEL 90010112345. Ul. Polna 4, Warszawa. Ale PESELU w sumie do faktury na osobę prywatną nie trzeba, prawda?"
+      }
+   ]
+}

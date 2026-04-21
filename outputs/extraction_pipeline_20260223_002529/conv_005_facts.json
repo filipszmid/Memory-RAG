@@ -1,0 +1,20 @@
+{
+  "conversation_id": "conv_005",
+  "facts": [
+    {
+      "fact": "User prefers Sony photographic equipment",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 3.04,
+    "prompt_tokens": 787,
+    "completion_tokens": 30,
+    "estimated_cost_usd": 0.001284,
+    "success": true
+  }
+}

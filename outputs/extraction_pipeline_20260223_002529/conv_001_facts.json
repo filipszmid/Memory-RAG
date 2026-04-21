@@ -1,0 +1,44 @@
+{
+  "conversation_id": "conv_001",
+  "facts": [
+    {
+      "fact": "User has a 3-year-old daughter named Zosia",
+      "category": "household"
+    },
+    {
+      "fact": "User prefers to buy Britax products",
+      "category": "preferences"
+    },
+    {
+      "fact": "User has a small car, a Toyota Yaris",
+      "category": "preferences"
+    },
+    {
+      "fact": "User lives in an apartment block",
+      "category": "household"
+    },
+    {
+      "fact": "User lives in the city of Warsaw",
+      "category": "household"
+    },
+    {
+      "fact": "User’s first name is Jan",
+      "category": "identity"
+    },
+    {
+      "fact": "User’s last name is Kowalski",
+      "category": "identity"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 2.32,
+    "prompt_tokens": 810,
+    "completion_tokens": 125,
+    "estimated_cost_usd": 0.002262,
+    "success": true
+  }
+}

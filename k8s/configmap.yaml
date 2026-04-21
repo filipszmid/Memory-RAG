@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: memory-config
+  namespace: memory-system
+data:
+  ES_HOST: "http://elasticsearch:9200"
+  OLLAMA_BASE_URL: "http://ollama:11434"
+  ES_INDEX: "user_facts"
+  API_URL: "http://api:8000"
+  LITELLM_PROXY_URL: "http://litellm-service:4000"

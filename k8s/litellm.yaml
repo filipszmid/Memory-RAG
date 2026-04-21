@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: litellm
+  namespace: memory-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: litellm
+  template:
+    metadata:
+      labels:
+        app: litellm
+    spec:
+      initContainers:
+      - name: wait-for-db
+        image: busybox:1.28
+        command: ['sh', '-c', "until nc -zv postgres-service 5432; do echo 'Waiting for postgres...'; sleep 2; done;"]
+      containers:
+      - name: litellm
+        image: ghcr.io/berriai/litellm:main-v1.71.1-stable # Using stable pinned version from Leanaudit
+        ports:
+        - containerPort: 4000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: litellm-db-secret
+              key: url
+        - name: LITELLM_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: litellm-db-secret
+              key: url
+        - name: LITELLM_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: LITELLM_MASTER_KEY
+        - name: LITELLM_SALT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: LITELLM_SALT_KEY
+        - name: LITELLM_DASHBOARD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: UI_USERNAME
+        - name: LITELLM_DASHBOARD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: UI_PASSWORD
+        - name: LITELLM_MODE
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: LITELLM_MODE
+        - name: USE_PRISMA_MIGRATE
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: USE_PRISMA_MIGRATE
+        - name: STORE_MODEL_IN_DB
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: STORE_MODEL_IN_DB
+        - name: REDIS_HOST
+          value: "redis-master"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_PASSWORD
+          value: ""
+        # API Keys for providers
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: OPENAI_API_KEY
+              optional: true
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: memory-secrets
+              key: GEMINI_API_KEY
+              optional: true
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config.yaml
+          subPath: proxy_config.yaml
+        args: ["--config", "/app/config.yaml", "--port", "4000"]
+        readinessProbe: # Corrected from healthcheck to readinessProbe for K8s
+          httpGet:
+            path: /health/readiness
+            port: 4000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 30
+      volumes:
+      - name: config-volume
+        configMap:
+          name: litellm-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: litellm-service
+  namespace: memory-system
+spec:
+  selector:
+    app: litellm
+  ports:
+  - protocol: TCP
+    port: 4000
+    targetPort: 4000

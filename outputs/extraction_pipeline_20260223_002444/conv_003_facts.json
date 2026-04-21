@@ -1,0 +1,36 @@
+{
+  "conversation_id": "conv_003",
+  "facts": [
+    {
+      "fact": "User lives in a house",
+      "category": "household"
+    },
+    {
+      "fact": "User lives near Krakow",
+      "category": "household"
+    },
+    {
+      "fact": "User has a garden",
+      "category": "household"
+    },
+    {
+      "fact": "User is 34 years old",
+      "category": "demographics"
+    },
+    {
+      "fact": "User has two German Shepherd dogs",
+      "category": "household"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gemini-3.1-pro-preview",
+  "provider": "gemini",
+  "telemetry": {
+    "api_latency_sec": 10.32,
+    "prompt_tokens": 587,
+    "completion_tokens": 66,
+    "estimated_cost_usd": 0.001966,
+    "success": true
+  }
+}

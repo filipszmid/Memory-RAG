@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: memory-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: memory-agent-api:latest # Reuses the API image
+        imagePullPolicy: IfNotPresent
+        command: ["python", "src/worker.py"]
+        envFrom:
+        - configMapRef:
+            name: memory-config
+        - secretRef:
+            name: memory-secrets
+        env:
+        - name: REDIS_HOST
+          value: "redis-master"
+        - name: LITELLM_PROXY_URL
+          value: "http://litellm-service:4000"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"

@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_006",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Planujemy z mężem wakacje w Grecji. Szukamy hotelu, który akceptuje duże psy, bo mamy labradora."
+      },
+      {
+         "role":"assistant",
+         "content":"Grecja to świetny kierunek! Czy lecą Państwo z dziećmi?"
+      },
+      {
+         "role":"user",
+         "content":"Nie, jedziemy tylko we dwoje. Ale jest jeden problem – mam silną alergię na orzechy ziemne, więc hotel musi mieć bezpieczną kuchnię."
+      },
+      {
+         "role":"assistant",
+         "content":"To bardzo ważne. Czy szukają Państwo czegoś blisko plaży?"
+      },
+      {
+         "role":"user",
+         "content":"Tak, mąż uwielbia kitesurfing, więc musi wiać. Ja wolę czytać książki w cieniu, zwykle wybieram thrillery medyczne."
+      }
+   ]
+}

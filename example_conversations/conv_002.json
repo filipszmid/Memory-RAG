@@ -1,0 +1,25 @@
+{
+   "conversation_id":"conv_002",
+   "messages":[
+      {
+         "role":"user",
+         "content":"Hej, czy macie jakieś przepisy na kolację bez laktozy? Moja żona ma nietolerancję, a mamy rocznicę."
+      },
+      {
+         "role":"assistant",
+         "content":"Jasne! Może coś z kuchni azjatyckiej? Oni rzadko używają nabiału."
+      },
+      {
+         "role":"user",
+         "content":"Super pomysł, oboje uwielbiamy sushi i ostre smaki. Tylko muszę uważać, żeby nasz pies, Burek, nic nie podwędził z talerza, bo potem choruje."
+      },
+      {
+         "role":"assistant",
+         "content":"Będę o tym pamiętać przy doborze składników. Czy planujecie też jakieś wino?"
+      },
+      {
+         "role":"user",
+         "content":"Nie, nie pijemy alkoholu. Wolimy dobrą zieloną herbatę, najlepiej japońską."
+      }
+   ]
+}

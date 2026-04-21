@@ -1,0 +1,36 @@
+{
+  "conversation_id": "conv_006",
+  "facts": [
+    {
+      "fact": "User is married",
+      "category": "demographics"
+    },
+    {
+      "fact": "User has a large dog that is a Labrador",
+      "category": "household"
+    },
+    {
+      "fact": "User has a strong allergy to peanuts",
+      "category": "demographics"
+    },
+    {
+      "fact": "User prefers to read books in the shade while on vacation",
+      "category": "preferences"
+    },
+    {
+      "fact": "User usually chooses medical thrillers to read",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gpt-5.1-2025-11-13",
+  "provider": "openai",
+  "telemetry": {
+    "api_latency_sec": 2.16,
+    "prompt_tokens": 769,
+    "completion_tokens": 94,
+    "estimated_cost_usd": 0.001901,
+    "success": true
+  }
+}

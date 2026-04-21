@@ -1,0 +1,40 @@
+{
+  "conversation_id": "conv_002",
+  "facts": [
+    {
+      "fact": "User is married",
+      "category": "demographics"
+    },
+    {
+      "fact": "User loves sushi",
+      "category": "preferences"
+    },
+    {
+      "fact": "User loves spicy flavors",
+      "category": "preferences"
+    },
+    {
+      "fact": "User has a dog named Burek",
+      "category": "household"
+    },
+    {
+      "fact": "User does not drink alcohol",
+      "category": "preferences"
+    },
+    {
+      "fact": "User prefers Japanese green tea",
+      "category": "preferences"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gemini-3.1-pro-preview",
+  "provider": "gemini",
+  "telemetry": {
+    "api_latency_sec": 15.94,
+    "prompt_tokens": 600,
+    "completion_tokens": 74,
+    "estimated_cost_usd": 0.002088,
+    "success": true
+  }
+}

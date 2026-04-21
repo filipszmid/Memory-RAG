@@ -1,0 +1,52 @@
+{
+  "conversation_id": "conv_001",
+  "facts": [
+    {
+      "fact": "User has a daughter named Zosia",
+      "category": "household"
+    },
+    {
+      "fact": "User's daughter Zosia is 3 years old",
+      "category": "household"
+    },
+    {
+      "fact": "User prefers the Britax brand for car seats",
+      "category": "preferences"
+    },
+    {
+      "fact": "User owns a Toyota Yaris",
+      "category": "preferences"
+    },
+    {
+      "fact": "User lives in an apartment building",
+      "category": "household"
+    },
+    {
+      "fact": "User lives on the 3rd floor",
+      "category": "household"
+    },
+    {
+      "fact": "User's first name is Jan",
+      "category": "identity"
+    },
+    {
+      "fact": "User's last name is Kowalski",
+      "category": "identity"
+    },
+    {
+      "fact": "User lives in Warszawa",
+      "category": "household"
+    }
+  ],
+  "pii_filtered_count": 0,
+  "validation_errors_count": 0,
+  "model": "gemini-3.1-pro-preview",
+  "provider": "gemini",
+  "telemetry": {
+    "api_latency_sec": 17.38,
+    "prompt_tokens": 632,
+    "completion_tokens": 267,
+    "estimated_cost_usd": 0.004468,
+    "success": true
+  }
+}
