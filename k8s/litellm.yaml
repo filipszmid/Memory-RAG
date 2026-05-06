@@ -92,7 +92,7 @@ spec:
           mountPath: /app/config.yaml
           subPath: proxy_config.yaml
         args: ["--config", "/app/config.yaml", "--port", "4000"]
-        readinessProbe: # Corrected from healthcheck to readinessProbe for K8s
+        readinessProbe:
           httpGet:
             path: /health/readiness
             port: 4000
