@@ -19,7 +19,7 @@ spec:
         command: ['sh', '-c', "until nc -zv postgres-service 5432; do echo 'Waiting for postgres...'; sleep 2; done;"]
       containers:
       - name: litellm
-        image: ghcr.io/berriai/litellm:main-v1.71.1-stable # Using stable pinned version from Leanaudit
+        image: ghcr.io/berriai/litellm:main-v1.71.1-stable
         ports:
         - containerPort: 4000
         env:
