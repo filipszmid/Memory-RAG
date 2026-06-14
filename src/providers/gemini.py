@@ -7,6 +7,8 @@ Uses the ``google-genai`` SDK and supports structured output via
 the ``response_schema`` configuration.
 """
 
+from typing import Any
+
 from google import genai
 from google.genai import types
 from loguru import logger
@@ -27,6 +29,7 @@ class GeminiProvider(LLMProvider):
     """
     Google Gemini provider implementation.
     """
+
     price_in_1m: float = settings.gemini_price_in_1m
     price_out_1m: float = settings.gemini_price_out_1m
 
@@ -39,7 +42,7 @@ class GeminiProvider(LLMProvider):
         self.client = genai.Client(api_key=settings.gemini_api_key)
 
     @staticmethod
-    def _extract_tokens(raw_resp: any) -> tuple[int, int]:
+    def _extract_tokens(raw_resp: Any) -> tuple[int, int]:
         if hasattr(raw_resp, "usage_metadata") and raw_resp.usage_metadata:
             return (
                 getattr(raw_resp.usage_metadata, "prompt_token_count", 0),
@@ -48,7 +51,7 @@ class GeminiProvider(LLMProvider):
         return 0, 0
 
     @staticmethod
-    def _extract_parsed(raw_resp: any) -> FactsResponse:
+    def _extract_parsed(raw_resp: Any) -> FactsResponse:
         return raw_resp.parsed
 
     @retry(
@@ -58,7 +61,7 @@ class GeminiProvider(LLMProvider):
         reraise=True,
     )
     @calculate_telemetry
-    def generate_facts(self, prompt: str) -> any:
+    def generate_facts(self, prompt: str) -> Any:
         """
         Generates facts using the Gemini API.
         """

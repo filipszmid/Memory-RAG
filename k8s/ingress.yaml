@@ -4,15 +4,29 @@ metadata:
   name: memory-ingress
   namespace: memory-system
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     # No rewrite-target here to avoid path confusion with FastAPI's explicit /api routes
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: /api
         pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 8000
+      - path: /docs
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 8000
+      - path: /openapi.json
+        pathType: ImplementationSpecific
         backend:
           service:
             name: api

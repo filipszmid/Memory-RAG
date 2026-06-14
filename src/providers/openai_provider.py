@@ -7,6 +7,8 @@ Uses the ``openai`` SDK and supports structured output via the ``parse`` method.
 Named ``openai_provider`` to avoid conflict with the ``openai`` package name.
 """
 
+from typing import Any
+
 import openai
 from loguru import logger
 from tenacity import (
@@ -26,6 +28,7 @@ class OpenAIProvider(LLMProvider):
     """
     OpenAI provider implementation.
     """
+
     price_in_1m: float = settings.openai_price_in_1m
     price_out_1m: float = settings.openai_price_out_1m
 
@@ -38,13 +41,13 @@ class OpenAIProvider(LLMProvider):
         self.client = openai.OpenAI(api_key=settings.openai_api_key)
 
     @staticmethod
-    def _extract_tokens(raw_resp: any) -> tuple[int, int]:
+    def _extract_tokens(raw_resp: Any) -> tuple[int, int]:
         if hasattr(raw_resp, "usage") and raw_resp.usage:
             return raw_resp.usage.prompt_tokens, raw_resp.usage.completion_tokens
         return 0, 0
 
     @staticmethod
-    def _extract_parsed(raw_resp: any) -> FactsResponse:
+    def _extract_parsed(raw_resp: Any) -> FactsResponse:
         return raw_resp.choices[0].message.parsed
 
     @retry(
@@ -61,7 +64,7 @@ class OpenAIProvider(LLMProvider):
         reraise=True,
     )
     @calculate_telemetry
-    def generate_facts(self, prompt: str) -> any:
+    def generate_facts(self, prompt: str) -> Any:
         """
         Generates facts using the OpenAI API.
         """

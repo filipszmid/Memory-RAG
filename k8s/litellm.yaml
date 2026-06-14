@@ -26,13 +26,13 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: litellm-db-secret
-              key: url
+              name: memory-secrets
+              key: LITELLM_DATABASE_URL
         - name: LITELLM_DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: litellm-db-secret
-              key: url
+              name: memory-secrets
+              key: LITELLM_DATABASE_URL
         - name: LITELLM_MASTER_KEY
           valueFrom:
             secretKeyRef:
@@ -74,7 +74,6 @@ spec:
           value: "6379"
         - name: REDIS_PASSWORD
           value: ""
-        # API Keys for providers
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:

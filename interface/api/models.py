@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 
+
 class RAGConfigModel(BaseModel):
     strategy: str = "hybrid"
     top_k: int = 5
@@ -8,6 +9,7 @@ class RAGConfigModel(BaseModel):
     alpha: float = 0.5
     rerank: bool = False
     rerank_model: str = "gpt-4o-mini"
+
 
 class ChatRequest(BaseModel):
     user_id: str
@@ -18,10 +20,12 @@ class ChatRequest(BaseModel):
     top_p: float = 1.0
     config: Optional[RAGConfigModel] = None
 
+
 class ChatResponse(BaseModel):
     response: str
     context_used: List[str]
     telemetry: Dict[str, Any]
+
 
 class Fact(BaseModel):
     id: str
@@ -30,12 +34,15 @@ class Fact(BaseModel):
     confidence: float
     created_at: str
 
+
 class SettingsResponse(BaseModel):
     rag_config: RAGConfigModel
+
 
 class MessageBody(BaseModel):
     role: str
     content: str
+
 
 class ExtractRequest(BaseModel):
     user_id: str
@@ -43,6 +50,7 @@ class ExtractRequest(BaseModel):
     provider: str = "openai"
     model: str = "gpt-4o"
     conversation_id: Optional[str] = None
+
 
 class ExtractResponse(BaseModel):
     job_id: str

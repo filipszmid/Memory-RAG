@@ -14,8 +14,6 @@ help: ## Show this help message
 	@echo "$(_BOLD)Personal Memory Module - Available Commands:$(_DEFAULT)"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(_CYAN)%-20s$(_DEFAULT) %s\n", $$1, $$2}'
 
-# --- Local Development ---
-
 .PHONY: dev-up
 dev-up: ## Start the full stack with Docker Compose
 	docker compose up --build -d
@@ -29,21 +27,17 @@ dev-down: ## Stop the stack
 dev-logs: ## Follow logs for all services
 	docker compose logs -f
 
-# --- Processing ---
-
 .PHONY: extract
-extract: ## Run the bulk extraction CLI (Task 1)
+extract: ## Run the bulk extraction CLI
 	poetry run task-1-extract-facts --input ./example_conversations
 
 .PHONY: test
 test: ## Run the full test suite
 	poetry run pytest tests/ -v
 
-# --- Kubernetes ---
-
 .PHONY: k8s-deploy
 k8s-deploy: ## Deploy the stack to Kubernetes using Kustomize
-	kubectl apply -k .
+	kubectl apply -k . --server-side --force-conflicts
 
 .PHONY: k8s-down
 k8s-down: ## Stop all services in Kubernetes
@@ -66,8 +60,8 @@ k8s-bounce-ui: ## Restart specifically the UI pod (useful for CSS tweaks)
 k8s-dashboard: ## Open the Minikube dashboard to see the cluster
 	minikube dashboard
 
-.PHONY: k8s-rebuild-all
-k8s-rebuild-all: ## [SUPER] Down, Build, Deploy, Wait, and Reset in one command
+.PHONY: kubernetes
+kubernetes: ## [SUPER] Down, Build, Deploy, Wait, and Reset in one command
 	make k8s-down
 	@echo "Waiting for namespace to fully delete..."
 	sleep 15
@@ -99,14 +93,13 @@ k8s-watch: ## Live watch of Kubernetes pods
 k8s-hosts: ## Print the lines to add to /etc/hosts for local routing
 	@echo "$(_BOLD)Add these lines to your /etc/hosts file:$(_DEFAULT)"
 	@MINIKUBE_IP=$$(minikube ip); \
+	echo "$$MINIKUBE_IP    memory.local"; \
 	echo "$$MINIKUBE_IP    litellm.local"
 
 .PHONY: k8s-tunnel
 k8s-tunnel: ## Helper to start Minikube tunnel (requires sudo)
 	@echo "$(_YELLOW)Running minikube tunnel... (Keep this terminal open)$(_DEFAULT)"
 	minikube tunnel
-
-# --- Maintenance ---
 
 .PHONY: k8s-dash-it
 k8s-dash-it: ## EMERGENCY: Direct tunnel to LiteLLM Dashboard (localhost:4000)

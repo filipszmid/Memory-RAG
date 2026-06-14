@@ -73,13 +73,16 @@ class Settings(BaseSettings):
 
     # LiteLLM & External Providers
     ollama_base_url: str = "http://localhost:11434"
+    litellm_master_key: Optional[str] = None
     litellm_cache: bool = True
-    
+
     # RAG Settings
     rag_threshold: int = 20
     rag_top_k: int = 5
 
-    model_config = SettingsConfigDict(env_file=str(_PROJECT_ROOT / ".env"), extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=str(_PROJECT_ROOT / ".env"), extra="ignore"
+    )
 
 
 # Singleton instance used throughout the package
@@ -90,14 +93,14 @@ settings = Settings()
 # prompt has already been instructed to omit sensitive data.
 # ---------------------------------------------------------------------------
 PII_PATTERNS: list[re.Pattern] = [
-    re.compile(r"\b\d{11}\b"),                                           # PESEL (Polish national ID)
+    re.compile(r"\b\d{11}\b"),  # PESEL (Polish national ID)
     re.compile(
         r"\bPL[\s]?\d{2}[\s]?\d{4}[\s]?\d{4}[\s]?\d{4}[\s]?\d{4}[\s]?\d{4}[\s]?\d{4}\b",
         re.I,
-    ),                                                                    # Polish IBAN
-    re.compile(r"\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b"),     # Card numbers
+    ),  # Polish IBAN
+    re.compile(r"\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b"),  # Card numbers
     re.compile(
         r"\b(ul\.|ulica|al\.|aleja|pl\.|plac)\s+\w[\w\s]+\d+[a-z]?\b",
         re.I,
-    ),                                                                    # Street addresses
+    ),  # Street addresses
 ]

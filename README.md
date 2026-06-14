@@ -18,7 +18,7 @@ Access your specialized interfaces across environments using the links below.
 | :--- | :--- | :--- |
 | **Streamlit UI** | [localhost:8501](http://localhost:8501) | [memory.local](http://memory.local) |
 | **LiteLLM Dashboard** | [localhost:4000](http://localhost:4000) | [litellm.local](http://litellm.local) |
-| **API Documentation** | [localhost:8000/api](http://localhost:8000/api) | [memory.local/api](http://memory.local/api) |
+| **API Documentation** | [localhost:8000/docs](http://localhost:8000/docs) | [memory.local/docs](http://memory.local/docs) |
 | **Cluster Dashboard** | N/A | `minikube dashboard` |
 
 ---
@@ -26,7 +26,7 @@ Access your specialized interfaces across environments using the links below.
 ## Professional Interface Gallery
 
 ### Modern Chat Interface
-A premium Streamlit-based dashboard allowing real-time interaction with the Memory Engine. It features "Data Science Mode" for deep retrieval tracing.
+A Streamlit-based dashboard for real-time interaction with the Memory Engine. It includes "Data Science Mode" for retrieval tracing.
 
 <p align="center">
   <img src="documentation/ui_chat.png" alt="Chat UI" />
@@ -67,7 +67,7 @@ Full OpenAPI/Swagger documentation for direct system integration and a centraliz
 <p align="center">
   <img src="documentation/api_docs.png" alt="API Docs" />
   <br>
-  <em>Figure 5: Enterprise-ready OpenAPI documentation for the Memory Engine.</em>
+  <em>Figure 5: OpenAPI documentation for the Memory Engine.</em>
 </p>
 
 ---
@@ -112,9 +112,12 @@ make dev-up
 
 ### Kubernetes Deployment (Production-Ready)
 Deploy the stabilized stack to Minikube:
-1. Full Build & Deploy: `make k8s-rebuild-all`
+1. Full Build & Deploy: `make kubernetes`
 2. Network Access: `make k8s-tunnel` (Keep open)
 3. Local DSN: `make k8s-hosts`
+4. Forward to cluster: `make k8s-dash-it` (see the litellm 
+   [dashboard](http://localhost:4000/))
+
 
 ---
 
@@ -126,10 +129,13 @@ The system uses a centralized `.env` file to manage secrets across both Docker a
 | :--- | :--- | :--- |
 | `OPENAI_API_KEY` | Your OpenAI API Key | `None` |
 | `GEMINI_API_KEY` | Your Google Gemini API Key | `None` |
-| `LITELLM_MASTER_KEY` | Secret key for LiteLLM Proxy access | `sk-1234` |
+| `LITELLM_MASTER_KEY` | Secret key for LiteLLM Proxy access | Required |
+| `LITELLM_SALT_KEY` | Salt for LiteLLM credential encryption | Required |
+| `POSTGRES_PASSWORD` | Password for the local LiteLLM Postgres database | Required |
+| `LITELLM_DATABASE_URL` | Kubernetes DSN for the LiteLLM database | Required for Kubernetes |
 | `LITELLM_MODE` | Toggle `DEV` or `PRODUCTION` dashboard | `PRODUCTION` |
-| `UI_USERNAME` | Admin login for LiteLLM/Streamlit | `admin` |
-| `UI_PASSWORD` | Admin password for LiteLLM/Streamlit | `admin1234` |
+| `UI_USERNAME` | Admin login for LiteLLM/Streamlit | Required |
+| `UI_PASSWORD` | Admin password for LiteLLM/Streamlit | Required |
 
 *Note: In Kubernetes, these are automatically injected via the `memory-secrets` generator.*
 
@@ -142,7 +148,7 @@ The project includes a comprehensive Kubernetes manifest suite managed via Kusto
 ### Cluster Components
 - Ingress-NGINX: Handles unified routing across the UI, API, and LiteLLM services.
 - Persistent Volumes (PVC): Ensures ElasticSearch data and Ollama models survive pod restarts.
-- Secret Management: Encrypted credentials for model providers (OpenAI, Gemini).
+- Secret Management: provider credentials are injected through Kustomize-generated Kubernetes secrets.
 - InitContainers: Implemented in LiteLLM and Worker pods to ensure database readiness before startup.
 
 ### Advanced K8s Commands
@@ -181,7 +187,7 @@ The dashboard includes a **Data Science Mode** for real-time algorithm tuning:
    - **0.5 (Balanced)**: Uses RRF to blend results.
 2. **Top K Facts**: Determines context injection depth (Recommended: 5-8).
 3. **RAG Threshold**: Intelligent profile injection logic.
-4. **Model Reranking**: Optional second-pass evaluation for premium relevance.
+4. **Model Reranking**: Optional second-pass relevance scoring.
 
 ---
 
@@ -226,7 +232,7 @@ times across multiple chat sessions.
 ### Intelligent Knowledge Updates
 **Scenario**: A user previously stated they lived in "London," but 
 later mentions "I just moved to Tokyo."  
-**Outcome**: The system identifies the conflict between the new fact and the existing memory. It marks the London fact as outdated and prioritizes the new Tokyo location, ensuring the agent always has the most current "World View" of the user.
+**Outcome**: The system identifies the conflict between the new fact and the existing memory. It marks the London fact as outdated and prioritizes the new Tokyo location, keeping retrieved context current.
 
 ---
 

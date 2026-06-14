@@ -24,7 +24,6 @@ from src.memory.elasticsearch_store import ESFactStore
 from src.deduplication.dedup import DeduplicationEngine
 
 
-
 class FactExtractionPipeline:
     """
     Orchestrates reading conversations, coordinating concurrent extraction via the LLM provider,
@@ -56,7 +55,9 @@ class FactExtractionPipeline:
 
         # Initialize ES Store and Deduplication Engine (Provider-agnostic)
         self.store = ESFactStore()
-        self.deduplicator = DeduplicationEngine(self.store, provider=provider_name, model=model)
+        self.deduplicator = DeduplicationEngine(
+            self.store, provider=provider_name, model=model
+        )
 
     @staticmethod
     def _build_user_prompt(conversation: Dict[str, Any]) -> str:
@@ -120,14 +121,20 @@ class FactExtractionPipeline:
 
         # Process facts through the deduplication/conflict engine
         # For simulation, we'll try to find a user_id or use conversation_id
-        user_id = conversation.get("user_id", conversation.get("conversation_id", "default_user"))
-        
+        user_id = conversation.get(
+            "user_id", conversation.get("conversation_id", "default_user")
+        )
+
         final_fact_ids = []
         for fact_dict in clean_facts:
             try:
-                fact_id = self.deduplicator.process_new_fact(user_id, fact_dict, conv_id)
+                fact_id = self.deduplicator.process_new_fact(
+                    user_id, fact_dict, conv_id
+                )
                 final_fact_ids.append(fact_id)
-                logger.success(f"[{fact_dict['category']}] {fact_dict['fact']} (ID: {fact_id})")
+                logger.success(
+                    f"[{fact_dict['category']}] {fact_dict['fact']} (ID: {fact_id})"
+                )
             except Exception as e:
                 logger.error(f"Failed to process fact '{fact_dict['fact']}': {e}")
 
@@ -160,15 +167,23 @@ class FactExtractionPipeline:
             data["conversation_id"] = path.stem
         return data
 
-    def extract_facts_from_messages(self, user_id: str, messages: List[Dict[str, str]], conversation_id: Optional[str] = None) -> Dict[str, Any]:
+    def extract_facts_from_messages(
+        self,
+        user_id: str,
+        messages: List[Dict[str, str]],
+        conversation_id: Optional[str] = None,
+    ) -> Dict[str, Any]:
         """
         Extracts facts from a list of messages directly.
         """
-        conv_id = conversation_id or f"direct_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        conv_id = (
+            conversation_id
+            or f"direct_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        )
         conversation = {
             "user_id": user_id,
             "conversation_id": conv_id,
-            "messages": messages
+            "messages": messages,
         }
         return self._extract_single_conversation(conversation)
 
@@ -194,7 +209,9 @@ class FactExtractionPipeline:
             self.store.create_index()
         except Exception as e:
             logger.error(f"Failed to initialize ElasticSearch index: {e}")
-            logger.warning("Pipeline will continue without persistence if ES is unreachable.")
+            logger.warning(
+                "Pipeline will continue without persistence if ES is unreachable."
+            )
 
         all_results = {}
         total_facts = 0

@@ -69,14 +69,18 @@ class ESFactStore:
             "is_outdated": False,
             **fact_data,
         }
-        resp = self.client.index(index=self.index_name, document=doc, refresh="wait_for")
+        resp = self.client.index(
+            index=self.index_name, document=doc, refresh="wait_for"
+        )
         return resp["_id"]
 
     def update_fact(self, fact_id: str, updates: Dict[str, Any]):
         """
         Updates specific fields of an existing fact.
         """
-        self.client.update(index=self.index_name, id=fact_id, doc=updates, refresh="wait_for")
+        self.client.update(
+            index=self.index_name, id=fact_id, doc=updates, refresh="wait_for"
+        )
 
     def soft_delete(self, fact_id: str, superseded_by: Optional[str] = None):
         """
@@ -87,7 +91,9 @@ class ESFactStore:
             updates["superseded_by"] = superseded_by
         self.update_fact(fact_id, updates)
 
-    def get_active_facts(self, user_id: str, category: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_active_facts(
+        self, user_id: str, category: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """
         Retrieves all non-outdated facts for a specific user.
         """
@@ -95,7 +101,7 @@ class ESFactStore:
             "bool": {
                 "must": [
                     {"term": {"user_id": user_id}},
-                    {"term": {"is_outdated": False}}
+                    {"term": {"is_outdated": False}},
                 ]
             }
         }
@@ -104,11 +110,19 @@ class ESFactStore:
 
         try:
             resp = self.client.search(index=self.index_name, query=query, size=1000)
-            return [{"id": hit["_id"], **hit["_source"]} for hit in resp["hits"]["hits"]]
+            return [
+                {"id": hit["_id"], **hit["_source"]} for hit in resp["hits"]["hits"]
+            ]
         except NotFoundError:
             return []
 
-    def knn_search(self, user_id: str, vector: List[float], category: Optional[str] = None, top_k: int = 5) -> List[Dict[str, Any]]:
+    def knn_search(
+        self,
+        user_id: str,
+        vector: List[float],
+        category: Optional[str] = None,
+        top_k: int = 5,
+    ) -> List[Dict[str, Any]]:
         """
         Performs vector similarity search.
         """
@@ -121,18 +135,27 @@ class ESFactStore:
                 "bool": {
                     "must": [
                         {"term": {"user_id": user_id}},
-                        {"term": {"is_outdated": False}}
+                        {"term": {"is_outdated": False}},
                     ]
                 }
-            }
+            },
         }
         if category:
             knn["filter"]["bool"]["must"].append({"term": {"category": category}})
 
         resp = self.client.search(index=self.index_name, knn=knn, size=top_k)
-        return [{"id": hit["_id"], "score": hit["_score"], **hit["_source"]} for hit in resp["hits"]["hits"]]
+        return [
+            {"id": hit["_id"], "score": hit["_score"], **hit["_source"]}
+            for hit in resp["hits"]["hits"]
+        ]
 
-    def text_search(self, user_id: str, query_text: str, category: Optional[str] = None, top_k: int = 5) -> List[Dict[str, Any]]:
+    def text_search(
+        self,
+        user_id: str,
+        query_text: str,
+        category: Optional[str] = None,
+        top_k: int = 5,
+    ) -> List[Dict[str, Any]]:
         """
         Performs BM25 keyword search.
         """
@@ -141,7 +164,7 @@ class ESFactStore:
                 "must": [
                     {"term": {"user_id": user_id}},
                     {"term": {"is_outdated": False}},
-                    {"match": {"fact": query_text}}
+                    {"match": {"fact": query_text}},
                 ]
             }
         }
@@ -149,9 +172,20 @@ class ESFactStore:
             query["bool"]["must"].append({"term": {"category": category}})
 
         resp = self.client.search(index=self.index_name, query=query, size=top_k)
-        return [{"id": hit["_id"], "score": hit["_score"], **hit["_source"]} for hit in resp["hits"]["hits"]]
+        return [
+            {"id": hit["_id"], "score": hit["_score"], **hit["_source"]}
+            for hit in resp["hits"]["hits"]
+        ]
 
-    def hybrid_search(self, user_id: str, query_text: str, vector: List[float], category: Optional[str] = None, top_k: int = 5, alpha: float = 0.5) -> List[Dict[str, Any]]:
+    def hybrid_search(
+        self,
+        user_id: str,
+        query_text: str,
+        vector: List[float],
+        category: Optional[str] = None,
+        top_k: int = 5,
+        alpha: float = 0.5,
+    ) -> List[Dict[str, Any]]:
         """
         Combines KNN and BM25 search results using weighted reciprocal rank fusion (RRF).
         Alpha controls the balance: 1.0 = Vector only, 0.0 = Keyword only.
@@ -161,7 +195,7 @@ class ESFactStore:
 
         # Weighted RRF implementation
         rrf_scores = {}
-        
+
         # We also want to keep track of the original scores/ranks for tracing
         trace_data = {}
 
@@ -171,7 +205,7 @@ class ESFactStore:
             rrf_scores[fact_id] = rrf_scores.get(fact_id, 0) + score
             trace_data.setdefault(fact_id, {})["vector_score"] = round(res["score"], 4)
             trace_data[fact_id]["vector_rank"] = rank + 1
-            
+
         for rank, res in enumerate(text_results):
             fact_id = res["id"]
             score = (1.0 / (rank + 60)) * (1.0 - alpha)
@@ -181,17 +215,19 @@ class ESFactStore:
 
         # Merge result dictionaries
         all_hits = {res["id"]: res for res in knn_results + text_results}
-        
+
         # Sort by RRF score
-        sorted_ids = sorted(rrf_scores.keys(), key=lambda x: rrf_scores[x], reverse=True)[:top_k]
-        
+        sorted_ids = sorted(
+            rrf_scores.keys(), key=lambda x: rrf_scores[x], reverse=True
+        )[:top_k]
+
         final_results = []
         for fid in sorted_ids:
             hit = all_hits[fid]
             hit["rrf_score"] = round(rrf_scores[fid], 6)
             hit["trace"] = trace_data.get(fid, {})
             final_results.append(hit)
-            
+
         return final_results
 
     def get_fact_by_key(self, user_id: str, fact_key: str) -> Optional[Dict[str, Any]]:
@@ -203,7 +239,7 @@ class ESFactStore:
                 "must": [
                     {"term": {"user_id": user_id}},
                     {"term": {"fact_key": fact_key}},
-                    {"term": {"is_outdated": False}}
+                    {"term": {"is_outdated": False}},
                 ]
             }
         }

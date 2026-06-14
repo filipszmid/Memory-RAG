@@ -30,7 +30,7 @@ services:
     image: postgres:16-alpine
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=litellm_pass
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=litellm
     ports:
       - "5432:5432"
@@ -55,8 +55,8 @@ services:
       - LITELLM_SALT_KEY=${LITELLM_SALT_KEY}
       - LITELLM_DASHBOARD_USERNAME=${UI_USERNAME}
       - LITELLM_DASHBOARD_PASSWORD=${UI_PASSWORD}
-      - DATABASE_URL=postgresql://postgres:litellm_pass@postgres:5432/litellm
-      - LITELLM_DATABASE_URL=postgresql://postgres:litellm_pass@postgres:5432/litellm
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/litellm
+      - LITELLM_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/litellm
       - LITELLM_MODE=${LITELLM_MODE}
       - USE_PRISMA_MIGRATE=${USE_PRISMA_MIGRATE}
       - STORE_MODEL_IN_DB=${STORE_MODEL_IN_DB}
@@ -81,6 +81,7 @@ services:
       - OLLAMA_BASE_URL=http://ollama:11434
       - REDIS_HOST=redis
       - LITELLM_PROXY_URL=http://litellm:4000
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -98,6 +99,7 @@ services:
       - ES_HOST=http://elasticsearch:9200
       - REDIS_HOST=redis
       - LITELLM_PROXY_URL=http://litellm:4000
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -120,7 +122,7 @@ services:
     ports:
       - "8501:8501"
     environment:
-      - API_URL=http://api:8000/api
+      - API_URL=http://api:8000
     depends_on:
       - api
       - ollama

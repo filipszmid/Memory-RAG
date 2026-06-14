@@ -17,7 +17,8 @@ _CATEGORIES_LIST = "\n".join(
     [f'- "{k}"   -> {v}' for k, v in settings.valid_categories.items()]
 )
 
-SYSTEM_PROMPT: str = """You are a precise fact extraction system for a personal memory module.
+SYSTEM_PROMPT: str = (
+    """You are a precise fact extraction system for a personal memory module.
 
 Your task is to extract ONLY permanent, atomic facts about the USER from the conversation.
 
@@ -49,6 +50,5 @@ DO NOT extract any of the following:
 Return ONLY a valid JSON array. No markdown, no explanation, no code fences.
 Example: [{{"fact": "User has a Toyota Yaris", "category": "preferences"}}]
 If no facts can be extracted, return an empty array: []
-""".format(
-    categories_list=_CATEGORIES_LIST
+""".format(categories_list=_CATEGORIES_LIST)
 )
